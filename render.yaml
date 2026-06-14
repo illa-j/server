@@ -4,6 +4,10 @@ services:
     runtime: docker
     dockerfilePath: ./Dockerfile
     plan: starter
+    disk:
+      name: ftsdata
+      mountPath: /opt/fts
+      sizeGB: 1
     envVars:
       - key: FTS_SECRET_KEY
         sync: false

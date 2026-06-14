@@ -435,9 +435,15 @@ class MainConfig:
         # sanitize and validate any path specified in config
         sanitized_path = ROOTPATH + os.path.relpath(os.path.normpath(os.path.join(os.sep, path)), os.sep)
 
-        if not os.access(sanitized_path, os.F_OK) or not os.access(sanitized_path, os.W_OK):
-            print(f"Cannot access configuration path: {sanitized_path}")
-            sys.exit(1)
+        if os.path.exists(sanitized_path):
+            if not os.access(sanitized_path, os.W_OK):
+                print(f"Cannot write to configuration path: {sanitized_path}")
+                sys.exit(1)
+        else:
+            parent = os.path.dirname(sanitized_path)
+            if not os.path.isdir(parent) or not os.access(parent, os.W_OK):
+                print(f"Cannot access configuration path: {sanitized_path} (parent directory {parent} is not accessible)")
+                sys.exit(1)
 
         return sanitized_path
 
