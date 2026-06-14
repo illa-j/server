@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: freetakserver
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    envVars:
+      - key: FTS_SECRET_KEY
+        sync: false
+      - key: FTS_FED_PASSWORD
+        sync: false
+      - key: FTS_CLIENT_CERT_PASSWORD
+        sync: false
+      - key: FTS_WEBSOCKET_KEY
+        sync: false
+      - key: FTS_NODE_ID
+        sync: false
+      - key: FTS_CONNECTION_MESSAGE
+        value: Welcome to FreeTAKServer
+      - key: FTS_COT_PORT
+        value: 8087
+      - key: FTS_SSLCOT_PORT
+        value: 8089
+      - key: FTS_API_PORT
+        value: 19023
+      - key: FTS_DP_ADDRESS
+        value: 0.0.0.0
+      - key: FTS_USER_ADDRESS
+        value: 0.0.0.0
+      - key: FTS_API_ADDRESS
+        value: 0.0.0.0
+      - key: FTS_OPTIMIZE_API
+        value: True
+      - key: FTS_COT_TO_DB
+        value: True
+      - key: FTS_LOG_LEVEL
+        value: info
+      - key: FTS_DATABASE_TYPE
+        value: SQLite
+      - key: FTS_MAINLOOP_DELAY
+        value: 100
+      - key: FTS_DATA_RECEPTION_BUFFER
+        value: 1024
+      - key: FTS_MAX_RECEPTION_TIME
+        value: 4
+      - key: FTS_NUM_ROUTING_WORKERS
+        value: 3
+      - key: FTS_EMERGENCY_RADIUS
+        value: 0
