@@ -14,6 +14,8 @@ services:
       - .env
     environment:
       - FTS_DATA_PATH=/mnt/fts
+    mem_limit: 1.5g
+    memswap_limit: 3g
     volumes:
       - /mnt/fts:/mnt/fts
     ports:
@@ -27,8 +29,8 @@ services:
       - 8443:8443
       # FederationPort
       #- 9000:9000
-      # APIPort - restrict to localhost or private network
-      #- 127.0.0.1:19023:19023
+      # APIPort / Web UI — accessible at http://<EC2_PUBLIC_IP>:19023
+      - 19023:19023
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/')"]
       interval: 30s

@@ -27,7 +27,7 @@ Create a security group with these inbound rules:
 | 8089 | TCP | 0.0.0.0/0 | SSL CoT |
 | 8080 | TCP | 0.0.0.0/0 | Data Package API |
 | 8443 | TCP | 0.0.0.0/0 | SSL Data Package |
-| 19023 | TCP | Your IP / restricted | REST API (admin) |
+| 19023 | TCP | Your IP / restricted | Web UI / REST API |
 
 > For production, restrict CoT/Data ports to known client CIDRs instead of `0.0.0.0/0`.
 

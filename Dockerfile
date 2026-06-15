@@ -13,7 +13,10 @@ ENV PATH="/home/freetak/.local/bin:$PATH"
 RUN pip install --upgrade pip ; pip install setuptools wheel poetry ; pip install --force-reinstall "ruamel.yaml<0.18"
 RUN pip install --no-build-isolation --editable .
 
-EXPOSE 8080 8087 8089 8443
+# Fix digitalpy log dirs writable by freetak user
+RUN find /usr/local/lib/python3.11/site-packages/digitalpy -type d -name logs -exec chmod 777 {} \;
+
+EXPOSE 8080 8087 8089 8443 19023
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
   CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8080/')" || exit 1
