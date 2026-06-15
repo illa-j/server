@@ -1,0 +1,16 @@
+[Unit]
+Description=FreeTAKServer Docker Compose service
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/fts-deploy
+ExecStart=/usr/bin/docker compose -f compose.ec2.yaml up -d
+ExecStop=/usr/bin/docker compose -f compose.ec2.yaml down
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target
