@@ -90,7 +90,7 @@ class DatabaseController:
                 tempsession.close()
                 return engine
             else:
-                Base.metadata.create_all(engine)
+                Base.metadata.create_all(engine, checkfirst=True)
                 return engine
     def create_Sessionmaker(self):
         SessionMaker = sessionmaker(bind=self.engine)
