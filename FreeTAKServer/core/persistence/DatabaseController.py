@@ -80,6 +80,7 @@ class DatabaseController:
         to create tables.
         :arg
         """
+        from sqlalchemy.exc import OperationalError
         engine = create_engine(DatabaseConfiguration().DataBaseConnectionString, echo=False)
         with engine.connect() as connection:
             if not connection.dialect.has_table(connection, "SystemUser"):
@@ -90,7 +91,10 @@ class DatabaseController:
                 tempsession.close()
                 return engine
             else:
-                Base.metadata.create_all(engine, checkfirst=True)
+                try:
+                    Base.metadata.create_all(engine, checkfirst=True)
+                except OperationalError:
+                    pass
                 return engine
     def create_Sessionmaker(self):
         SessionMaker = sessionmaker(bind=self.engine)
