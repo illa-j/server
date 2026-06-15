@@ -23,4 +23,4 @@ if [[ ! -f "$FTS_DATA_PATH/FTSConfig.yaml" ]]; then
 fi
 
 # Drop to freetak user and run the main process
-exec gosu freetak python -m FreeTAKServer.controllers.services.FTS
+exec gosu freetak python -m FreeTAKServer.controllers.services.FTS -AutoStart True 2>&1
