@@ -17,7 +17,7 @@ COPY --chmod=644 sitecustomize.py /usr/local/lib/python3.11/site-packages/sitecu
 
 ENV PATH="/home/freetak/.local/bin:$PATH"
 RUN pip install --upgrade pip ; pip install setuptools wheel poetry ; pip install --force-reinstall "ruamel.yaml<0.18"
-RUN pip install --no-build-isolation --editable .
+RUN pip install --no-build-isolation --editable ".[ui]"
 
 EXPOSE 8080 8087 8089 8443 19023
 
