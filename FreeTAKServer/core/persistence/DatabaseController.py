@@ -82,20 +82,20 @@ class DatabaseController:
         """
         from sqlalchemy.exc import OperationalError
         engine = create_engine(DatabaseConfiguration().DataBaseConnectionString, echo=False)
-        with engine.connect() as connection:
-            if not connection.dialect.has_table(connection, "SystemUser"):
-                Base.metadata.create_all(engine)
-                tempsession = sessionmaker(bind=engine)()
-                tempsession.add(FreeTAKServer.model.SQLAlchemy.system_user.SystemUser(uid="1", name="admin", password="password", token="token", device_type="mobile"))
-                tempsession.commit()
-                tempsession.close()
-                return engine
-            else:
-                try:
+        try:
+            with engine.connect() as connection:
+                if not connection.dialect.has_table(connection, "SystemUser"):
+                    Base.metadata.create_all(engine)
+                    tempsession = sessionmaker(bind=engine)()
+                    tempsession.add(FreeTAKServer.model.SQLAlchemy.system_user.SystemUser(uid="1", name="admin", password="password", token="token", device_type="mobile"))
+                    tempsession.commit()
+                    tempsession.close()
+                    return engine
+                else:
                     Base.metadata.create_all(engine, checkfirst=True)
-                except OperationalError:
-                    pass
-                return engine
+                    return engine
+        except OperationalError:
+            return engine
     def create_Sessionmaker(self):
         SessionMaker = sessionmaker(bind=self.engine)
         return SessionMaker
