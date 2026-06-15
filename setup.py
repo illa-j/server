@@ -24,7 +24,7 @@ setup(
     install_requires=[
         "bitarray",
         "click==8.1.7",
-        "colorama==0.4.4",
+        "colorama>=0.4.4",
         "cryptography==36.0.2",
         "bcrypt==3.1.7",
         "defusedxml==0.7.1",
